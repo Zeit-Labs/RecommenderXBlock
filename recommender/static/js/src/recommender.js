@@ -362,11 +362,13 @@ function RecommenderXBlock(runtime, element, init_data) {
      * @returns {element} The element of shown resource.
      */
     function showResourceEntry(votes, resource) {
+        console.log('-------------------------------START-------------------------------')
         /* Decide the position for the added resource (pos), by sorting the votes */
         var pos = -1;
         $('.recommenderVoteScore', element).each(function(idx, ele){ 
             if (parseInt($(ele).text(), 10) < votes) {
                 pos = idx;
+                console.log('.recommenderVoteScore return false!!!!!!!!!!!!!!!!')
                 return false;
             }
         });
@@ -397,6 +399,7 @@ function RecommenderXBlock(runtime, element, init_data) {
         }
 
         var $newDiv = $(Mustache.render($("#recommenderResourceTemplate").html(), renderData));
+        console.log('$newDiv: ', $newDiv)
         bindResourceDependentEvent($newDiv);
         if (IS_USER_STAFF) { bindStaffLimitedResourceDependentEvent($newDiv); }
 
@@ -408,7 +411,7 @@ function RecommenderXBlock(runtime, element, init_data) {
             else { $(toDiv).before($newDiv); }
         }
         addResourceDependentTooltip($newDiv);
-
+        console.log('-------------------------------END-------------------------------')
         return $newDiv;
     }
     
